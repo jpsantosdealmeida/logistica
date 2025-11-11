@@ -1,0 +1,1 @@
+- **model/** → Tudo relacionado ao **banco de dados e regras de negócio.**

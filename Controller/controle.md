@@ -1,0 +1,1 @@
+- **controller/** → Camada intermediária que **liga a view ao model.**

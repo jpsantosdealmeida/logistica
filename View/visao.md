@@ -1,0 +1,1 @@
+- **view/** → As **interfaces gráficas** (CustomTkinter).
