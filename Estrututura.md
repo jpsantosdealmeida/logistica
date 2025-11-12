@@ -69,7 +69,6 @@ Use **MySQL** se quiser algo profissional e escalável, ou **SQLite3** se quiser
 
 **FAZER**
 **FAZENDO**
-
 **FEITO**
 - Criar conexão (`database.py`).
 - Criar tabelas `motorista` e `veiculo`. (postgree)
@@ -102,6 +101,12 @@ Deve conter:
 
 🧠 Dica: Nenhum SQL dentro da view.
 
+**FAZER**
+**FAZENDO**
+**FEITO**
+- CRUD completo.
+- Função de busca.
+- Retorno padronizado (True/False ou mensagens).
 ---
 
 ## 🪟 6. View (Interface CustomTkinter)

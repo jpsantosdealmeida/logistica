@@ -9,5 +9,5 @@ from Controller.motorista_controller import MotoristaController
 # print(MotoristaController.inserir(moto_teste))
 
 # veiculo teste INSERIDO
-veiculo_teste = Veiculo('adsaasdd','Volvo','2022','2')
-print(VeiculoController.atualizar(veiculo_teste,28))
+
+print(VeiculoController.buscar('adsa'))
