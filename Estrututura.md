@@ -1,9 +1,11 @@
-# 🚀 Etapa 1 — Reforço de Arquitetura (MVC + Banco)
+# 🚀 Etapa 1 — Reforço de Arquitetura (MVC + Banco) + Roadmap e Kanban
 
 ## 🎯 Objetivo
-Criar a base do sistema logístico, começando com **cadastro de motoristas e veículos**, utilizando a arquitetura **MVC (Model–View–Controller)** e **CustomTkinter + Banco de Dados**.
+Criar a base do sistema logístico, começando com **cadastro de motoristas e veículos**, utilizando a arquitetura **MVC (Model–View–Controller)**, **CustomTkinter**, **PostgreSQL/MySQL** e boas práticas de organização.
 
 ---
+
+# 📦 PARTE 1 — ARQUITETURA E FUNDAMENTOS
 
 ## 🧱 1. Estrutura de Pastas
 
@@ -28,9 +30,9 @@ sistema_transporte/
 ```
 
 ### 🧩 Explicação da Estrutura
-- **model/** → Tudo relacionado ao **banco de dados e regras de negócio.**
-- **view/** → As **interfaces gráficas** (CustomTkinter).
-- **controller/** → Camada intermediária que **liga a view ao model.**
+- **model/** → Banco de dados e regras de negócio.  
+- **view/** → Interfaces gráficas (CustomTkinter).  
+- **controller/** → Intermediação entre interface e regras.  
 - **main.py** → Ponto de entrada da aplicação.
 
 ---
@@ -46,6 +48,8 @@ sistema_transporte/
 | telefone | VARCHAR(15) | opcional |
 | cnh | VARCHAR(15) | obrigatório |
 
+---
+
 ### Entidade: Veículo
 | Campo | Tipo | Observação |
 |--------|------|------------|
@@ -55,120 +59,193 @@ sistema_transporte/
 | ano | INT | opcional |
 | id_motorista | INT | FK → motorista.id_motorista |
 
-🧠 **Dica:** Um motorista pode dirigir vários veículos (relação 1:N).
+🧠 **Observação:** Um motorista pode dirigir vários veículos (1:N).
 
 ---
 
 ## ⚙️ 3. Banco de Dados
 
-### Decisão
-Use **MySQL** se quiser algo profissional e escalável, ou **SQLite3** se quiser praticidade local.
+### Banco recomendado:
+- **PostgreSQL** (projetos reais)  
+- **SQLite** (protótipo rápido local)
 
+### Tarefas
 
-## KANBAN
+**FAZER**  
+- Criar conexão (`database.py`).  
+- Criar tabelas `motorista` e `veiculo` (Postgres).  
 
-**FAZER**
-**FAZENDO**
-**FEITO**
-- Criar conexão (`database.py`).
-- Criar tabelas `motorista` e `veiculo`. (postgree)
-- Criar tabelas `motorista` e `veiculo`. (python)
-- Implementar funções: `conectar()`, `criar_tabelas()`, `executar_comando()`, `consultar_dados()` (será feito direto na query postgres por enquanto)
+**FAZENDO**  
+- Criar funções de manipulação.
+
+**FEITO**  
+- —  
+
 ---
 
 ## 🧠 4. Model (Regras de Negócio)
 
-Cada arquivo (`motorista.py`, `veiculo.py`) deve conter uma classe com:
-- Atributos.
-- Construtor.
-- Validações e métodos auxiliares.
+Em cada classe (motorista.py e veiculo.py):
 
-📘 O model **não conhece a interface**, apenas as regras (ex: validação de CPF, placa única, etc.).
+- Atributos correspondentes ao banco.  
+- Construtor.  
+- Validações:  
+  - CPF válido  
+  - Placa única  
+  - CNH obrigatória  
+
+O model **não acessa banco diretamente**.
 
 ---
 
 ## 🧩 5. Controller (Lógica e Conexão)
 
 Responsável por:
-- Receber dados da view.
-- Validar com o model.
-- Enviar comandos ao banco.
 
-Deve conter:
-- CRUD completo.
-- Função de busca.
-- Retorno padronizado (True/False ou mensagens).
+- Receber dados da view  
+- Validar  
+- Executar operações no banco  
+- Retornar mensagem ou status  
 
-🧠 Dica: Nenhum SQL dentro da view.
+### Tarefas:
 
-**FAZER**
-**FAZENDO**
-**FEITO**
-- CRUD completo.
-- Função de busca.
-- Retorno padronizado (True/False ou mensagens).
+**FAZER**  
+- CRUD completo.  
+- Função de busca.  
+- Retorno padronizado (bool/msg).  
+
+**FAZENDO**  
+- —  
+
+**FEITO**  
+- —  
+
 ---
 
 ## 🪟 6. View (Interface CustomTkinter)
 
-As views devem:
-- Mostrar formulários e botões.
-- Coletar dados do usuário.
-- Enviar para o controller.
-
 Arquivos:
-- `janela_principal.py`: tela principal.
-- `form_motorista.py`: formulário de motorista.
-- `form_veiculo.py`: formulário de veículo.
+- `janela_principal.py` → menu e navegação  
+- `form_motorista.py` → cadastro/edição  
+- `form_veiculo.py` → cadastro/edição  
 
-Regra: **Nada de SQL ou lógica aqui** — apenas interface e chamadas para o controller.
+Regras:
+
+- Nada de SQL na view.  
+- Apenas pegar dados dos inputs e chamar controllers.  
+- Treeview para listagem.
 
 ---
 
 ## 🧩 7. main.py (Ponto de Entrada)
 
-Responsável por:
-1. Conectar ao banco.
-2. Criar tabelas.
-3. Iniciar a janela principal.
+O main deve:
 
-Nada de regras de negócio aqui.
+1. Conectar ao banco  
+2. Criar tabelas  
+3. Iniciar janela principal  
+
+Sem regras de negócio.
 
 ---
 
 ## 🔄 8. Teste da Arquitetura
 
-Antes de criar a interface:
-- Teste controller → model → database.
-- Faça simulações no terminal.
-- Verifique criação das tabelas.
+Antes da interface:
+
+- Testar controller → model → database no terminal.  
+- Simular cadastros.  
+- Testar exceções.  
 
 Depois:
-- Conecte com CustomTkinter.
-- Teste botões e Treeview.
+
+- Integrar com CustomTkinter.  
+- Testar botões.  
+- Testar atualização automática do Treeview.
 
 ---
 
 ## 📋 9. Entrega da Etapa
 
 **Resultados esperados:**
-- Estrutura MVC completa.
-- Banco funcional.
-- CRUD de motoristas e veículos (sem interface complexa).
-- Conexão e camadas separadas.
+
+- Estrutura MVC criada  
+- Banco funcionando  
+- CRUD de motoristas e veículos  
+- Conexão 100% separada  
+- Sem lógica misturada na interface  
 
 ---
 
-## 💡 Dica para Kanban
-Crie colunas como:
-- 📋 A Fazer
-- ⚙️ Em Progresso
-- ✅ Concluído
+# 📌 PARTE 2 — ROADMAP GERAL DO SISTEMA LOGÍSTICO
 
-E adicione cartões para:
-1. Criar estrutura de pastas.  
-2. Configurar banco e tabelas.  
-3. Criar classes de modelo.  
-4. Implementar controladores.  
-5. Montar interface básica.  
-6. Testar integração completa.
+## 🟦 BACKLOG
+- Dashboard com estatísticas  
+- Cadastro de Cargas  
+- Cadastro de Viagens  
+- Workflow logístico (saída, chegada, finalização)  
+- Relatórios PDF  
+- Login + Níveis de usuário  
+- Logs de auditoria  
+- Exportar para Excel  
+- API REST (FastAPI/Flask)  
+
+---
+
+## 🟩 A FAZER (Sprint Atual)
+- Criar sistema MVC base  
+- Criar model e controller de motorista  
+- Criar model e controller de veículo  
+- Criar banco + tabelas no PostgreSQL  
+- Criar Views de Motorista e Veículo  
+- Integrar Controller ↔ View  
+- Testes locais  
+- Validar dados  
+
+---
+
+## 🟧 FAZENDO
+- Integrando Interface  
+- Testando CRUD  
+- Validando campos  
+
+---
+
+## 🟨 FEITO
+*(Mover conforme concluir)*
+
+---
+
+# 🗂️ Kanban sugerido
+
+```
+📋 A FAZER
+- Montar estrutura de pastas
+- Criar database.py
+- Criar tabelas no PostgreSQL
+- Criar classes Motorista e Veiculo
+- Criar controllers
+- Criar interface básica
+- Testar integração
+
+⚙️ EM PROGRESSO
+- CRUD Motorista
+- CRUD Veículo
+
+✅ CONCLUÍDO
+(Deixe em branco para ir preenchendo)
+```
+
+---
+
+# 🌟 Conclusão
+
+Este arquivo reúne:
+
+- Arquitetura MVC  
+- Planejamento das entidades  
+- Etapas da implementação  
+- Roadmap completo  
+- Kanban pronto para uso  
+- Objetivos da Etapa 1  
+- Organização profissional de projeto  
